@@ -117,6 +117,10 @@ NSString *const kReachabilityChangedNotification = @"NetworkReachabilityChangedN
 
 static NSString *reachabilityFlags_(SCNetworkReachabilityFlags flags) {
 	
+    /*
+     kSCNetworkReachabilityFlagsIsWWAN で問題が起きたので TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR の部分と TARGET_OS_MAC を勝手に追加しといた。
+     */
+    
 #if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 30000) // Apple advises you to use the magic number instead of a symbol.
     return [NSString stringWithFormat:@"Reachability Flags: %c%c %c%c%c%c%c%c%c",
 			(flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
@@ -129,11 +133,23 @@ static NSString *reachabilityFlags_(SCNetworkReachabilityFlags flags) {
 			(flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-',
 			(flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
 			(flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-'];
-#else
+#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 	// Compile out the v3.0 features for v2.2.1 deployment.
     return [NSString stringWithFormat:@"Reachability Flags: %c%c %c%c%c%c%c%c",
-#warning OSX 向けにしたらここでビルド止まったのでとりあえずコメントアウト
-//			(flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
+			(flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
+			(flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
+			
+			(flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
+			(flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
+			(flags & kSCNetworkReachabilityFlagsInterventionRequired) ? 'i' : '-',
+			// v3 kSCNetworkReachabilityFlagsConnectionOnTraffic == v2 kSCNetworkReachabilityFlagsConnectionAutomatic
+			(flags & kSCNetworkReachabilityFlagsConnectionAutomatic)  ? 'C' : '-',
+			// (flags & kSCNetworkReachabilityFlagsConnectionOnDemand)   ? 'D' : '-', // No v2 equivalent.
+			(flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
+			(flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-'];
+#elif TARGET_OS_MAC
+    return [NSString stringWithFormat:@"Reachability Flags: %c %c%c%c%c%c%c",
+            //#warning OSX 向けにしたらここでビルド止まったのでとりあえずコメントアウト
 			(flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
 			
 			(flags & kSCNetworkReachabilityFlagsConnectionRequired)   ? 'c' : '-',
@@ -440,8 +456,12 @@ const SCNetworkReachabilityFlags kConnectionDown =  kSCNetworkReachabilityFlagsC
 		// WWAN Connection required: Reachability Flag Status: WR ct-----
 		//
 		// Test Value: Reachability Flag Status: WR xxxxxxx
-#warning OSX 向けにしたらここでビルド止まったのでとりあえずコメントアウト
-//		if (flags & kSCNetworkReachabilityFlagsIsWWAN) { return kReachableViaWWAN; }
+        #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+        /*
+         kSCNetworkReachabilityFlagsIsWWAN で問題が起きたので TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR を勝手に追加しといた。
+         */
+ 		if (flags & kSCNetworkReachabilityFlagsIsWWAN) { return kReachableViaWWAN; }
+        #endif
 		
 		// Clear moot bits.
 		flags &= ~kSCNetworkReachabilityFlagsReachable;
