@@ -21,7 +21,7 @@ static int networkCount = 0;
         });
         return;
     }
-    
+
     networkCount++;
     if (networkCount > 0) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -39,7 +39,7 @@ static int networkCount = 0;
         });
         return;
     }
-    
+
     if (networkCount > 0) {
         networkCount--;
         if (networkCount == 0) {
@@ -59,18 +59,18 @@ static Reachability* curReach = nil;
     dispatch_once(&onceToken, ^{
         curReach = [Reachability reachabilityForInternetConnection];
     });
-    
+
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
-    
+
     return (netStatus != NotReachable);
 }
 
 + (BOOL)isInternetConnectionViaWifi
 {
     [self isInternetConnectionAvailable];
-    
+
     NetworkStatus netStatus = [curReach currentReachabilityStatus];
-    if (netStatus == kReachableViaWiFi) {
+    if (netStatus == ReachableViaWiFi) {
         return YES;
     }
     return NO;
