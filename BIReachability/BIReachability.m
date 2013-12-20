@@ -55,25 +55,18 @@ static Reachability* curReach = nil;
 
 + (BOOL)isInternetConnectionAvailable
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    if (curReach == nil) {
         curReach = [Reachability reachabilityForInternetConnection];
-    });
-
-    NetworkStatus netStatus = [curReach currentReachabilityStatus];
-
-    return (netStatus != NotReachable);
+    }
+    return curReach.isReachable;
 }
 
 + (BOOL)isInternetConnectionViaWifi
 {
-    [self isInternetConnectionAvailable];
-
-    NetworkStatus netStatus = [curReach currentReachabilityStatus];
-    if (netStatus == ReachableViaWiFi) {
-        return YES;
+    if (curReach == nil) {
+        curReach = [Reachability reachabilityForInternetConnection];
     }
-    return NO;
+    return curReach.isReachableViaWiFi;
 }
 
 @end
