@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "BIReachability"
-  s.version               = "1.0.1"
+  s.version               = "1.1"
   s.summary               = "Reachability のラッパ。 おまけで NSURLConnection の sendAsynchronousRequest をメインスレッドでやるやつも入ってるけど、依存関係はない。"
   s.authors               = {
     "Yusuke SUGAMIYA" => "yusuke.dnpp@gmail.com",
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   }
   s.homepage              = "https://github.com/Beatrobo/BIReachability"
   s.source                = { :git => "git@github.com:Beatrobo/BIReachability.git", :tag => "#{s.version}" }
-  source_files            = 'BIReachability/**/*.{h,m}''
+  source_files            = 'BIReachability/**/*.{h,m}'
   s.source_files          = source_files
   s.ios.source_files      = source_files
   s.osx.source_files      = source_files
