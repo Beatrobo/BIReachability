@@ -23,8 +23,4 @@ pod repo push --allow-warnings beatrobo *.podspec
 
 BI is "Beatrobo Inc" prefix.
 
-おまけで `NSURLConnection` の `sendAsynchronousRequest` をメインスレッドでやるやつも入ってる。
-
-`Reachability` に依存関係はない。
-
-ちなみに、おまけが他のライブラリ各所で使われてるという問題が…。
+Reachability wrapper.

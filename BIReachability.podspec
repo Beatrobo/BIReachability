@@ -8,9 +8,10 @@ Pod::Spec.new do |s|
   }
   s.homepage              = "https://github.com/Beatrobo/BIReachability"
   s.source                = { :git => "git@github.com:Beatrobo/BIReachability.git", :tag => "#{s.version}" }
-  s.source_files          = 'BIReachability/**/*.{h,m}', 'Optional/**/*.{h,m}'
-  s.ios.source_files      = 'BIReachability/**/*.{h,m}', 'Optional/**/*.{h,m}'
-  s.osx.source_files      = 'BIReachability/**/*.{h,m}', 'Optional/**/*.{h,m}'
+  source_files            = 'BIReachability/**/*.{h,m}''
+  s.source_files          = source_files
+  s.ios.source_files      = source_files
+  s.osx.source_files      = source_files
   s.ios.deployment_target = '6.0'
   s.osx.deployment_target = '10.8'
   s.requires_arc          = true
