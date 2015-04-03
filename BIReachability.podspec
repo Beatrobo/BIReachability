@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name                  = "BIReachability"
   s.version               = "1.2"
-  s.summary               = "Reachability のラッパ。 おまけで NSURLConnection の sendAsynchronousRequest をメインスレッドでやるやつも入ってるけど、依存関係はない。"
+  s.summary               = "Reachability Wrapper."
   s.authors               = {
     "Yusuke SUGAMIYA" => "yusuke.dnpp@gmail.com",
     "Yusuke Ito"      => "novi.mad@gmail.com"
