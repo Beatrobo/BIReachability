@@ -17,6 +17,7 @@ Pod::Spec.new do |s|
   s.requires_arc          = true
 
   s.dependency 'Reachability'
+  s.dependency 'dp_exec_block_on_main_thread'
 
   s.license = {
    :type => "Beatrobo Inc Library",

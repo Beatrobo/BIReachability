@@ -1,11 +1,11 @@
-//
-//  Created by Yusuke Sugamiya on 2013/07/03.
-//
-
 #import "BIReachability.h"
 #import "Reachability.h"
+#import "dp_exec_block_on_main_thread.h"
+
 
 @implementation BIReachability
+
+#pragma mark - for iOS
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 static int networkCount = 0;
@@ -14,59 +14,52 @@ static int networkCount = 0;
 
 + (void)beginNetworkConnection
 {
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    if ([NSThread mainThread] != [NSThread currentThread]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self beginNetworkConnection];
-        });
-        return;
-    }
-
-    networkCount++;
-    if (networkCount > 0) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    }
-#elif TARGET_OS_MAC
-#endif
+    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+    dp_exec_block_on_main_thread(^{
+        networkCount++;
+        if (networkCount > 0) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        }
+    });
+    #elif TARGET_OS_MAC
+    #endif
 }
 
 + (void)endNetworkConnection
 {
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-    if ([NSThread mainThread] != [NSThread currentThread]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self endNetworkConnection];
-        });
-        return;
-    }
-
-    if (networkCount > 0) {
-        networkCount--;
-        if (networkCount == 0) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+    dp_exec_block_on_main_thread(^{
+        if (networkCount > 0) {
+            networkCount--;
+            if (networkCount == 0) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            }
         }
-    }
-#elif TARGET_OS_MAC
-
-#endif
+    });
+    #elif TARGET_OS_MAC
+    #endif
 }
 
-static Reachability* curReach = nil;
+#pragma mark - Reachability
+
++ (Reachability*)curReach
+{
+    static Reachability* curReach = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        curReach = [Reachability reachabilityForInternetConnection];
+    });
+    return curReach;
+}
 
 + (BOOL)isInternetConnectionAvailable
 {
-    if (curReach == nil) {
-        curReach = [Reachability reachabilityForInternetConnection];
-    }
-    return curReach.isReachable;
+    return [self curReach].isReachable;
 }
 
 + (BOOL)isInternetConnectionViaWifi
 {
-    if (curReach == nil) {
-        curReach = [Reachability reachabilityForInternetConnection];
-    }
-    return curReach.isReachableViaWiFi;
+    return [self curReach].isReachableViaWiFi;
 }
 
 @end
