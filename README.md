@@ -1,7 +1,7 @@
 BIReachability
 ===================
 
-[![Build Status](http://img.shields.io/travis/Beatrobo/BIReachability/development.svg?style=flat-square)](https://travis-ci.org/Beatrobo/BIReachability)
+[![Build Status](http://img.shields.io/travis/Beatrobo/BIReachability.svg?style=flat-square)](https://travis-ci.org/Beatrobo/BIReachability)
 [![Pod Version](http://img.shields.io/cocoapods/v/BIReachability.svg?style=flat-square)](http://cocoadocs.org/docsets/BIReachability/)
 [![Pod Platform](http://img.shields.io/cocoapods/p/BIReachability.svg?style=flat-square)](http://cocoadocs.org/docsets/BIReachability/)
 [![Pod License](http://img.shields.io/cocoapods/l/BIReachability.svg?style=flat-square)](http://opensource.org/licenses/MIT)
