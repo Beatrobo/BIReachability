@@ -13,6 +13,10 @@ BIReachability
 ### Require Framework
 * None
 
+# Usage
+
+See [BIReachabillity.h](BIReachability/BIReachability.h)
+
 # Description
 
 BI is "Beatrobo Inc" prefix.
