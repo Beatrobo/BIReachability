@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name                  = 'BIReachability'
-  s.version               = '1.2.1'
+  s.version               = '2.0.0'
   s.summary               = 'Reachability Wrapper.'
   s.authors               = {
     'Yusuke SUGAMIYA' => 'yusuke.dnpp@gmail.com',
     'Yusuke Ito'      => 'novi.mad@gmail.com'
   }
-  s.homepage              = 'https://github.com/Beatrobo/BIReachability'
+  s.homepage              = 'https://github.com/dnpp73/DPReachability'
   s.source                = { :git => 'https://github.com/Beatrobo/BIReachability.git', :tag => "#{s.version}" }
   source_files            = 'BIReachability/**/*.{h,m}'
   s.source_files          = source_files
@@ -16,8 +16,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.8'
   s.requires_arc          = true
 
-  s.dependency 'Reachability'
-  s.dependency 'dp_exec_block_on_main_thread'
+  s.dependency 'DPReachability'
 
   s.license = {
    :type => 'MIT',

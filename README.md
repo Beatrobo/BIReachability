@@ -6,24 +6,11 @@ BIReachability
 [![Pod Platform](http://img.shields.io/cocoapods/p/BIReachability.svg?style=flat-square)](http://cocoadocs.org/docsets/BIReachability/)
 [![Pod License](http://img.shields.io/cocoapods/l/BIReachability.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
-### Dependency
-* `Reachability`
-* `dp_exec_block_on_main_thread`
-
-### Require Framework
-* None
-
-# Usage
-
-See [BIReachabillity.h](BIReachability/BIReachability.h)
-
 # Description
 
-BI is "Beatrobo Inc" prefix.
+This repository has been move to [`DPReachabillity`](https://github.com/dnpp73/DPReachability)
 
-Reachability wrapper.
-
-#LICENSE
+# LICENSE
 
 Copyright (c) 2015 Beatrobo, Inc
 
